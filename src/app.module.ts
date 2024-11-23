@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user/entities/user.entity';
 import { ConfigModule } from '@nestjs/config'
-
+import { DepartmensModule } from './departmens/departmens.module';
+import { StaffsModule } from './staffs/staffs.module';
+import { Staff } from './staffs/entities/staff.entity';
+import { Department } from './departmens/entities/departmen.entity';
+import { PositionsModule } from './positions/positions.module';
+import { Position } from './positions/entities/position.entity';
 @Module({
   imports: [ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
@@ -15,12 +18,13 @@ import { ConfigModule } from '@nestjs/config'
       username: 'root',
       password: '',
       database: 'quan_ly_thang_may',
-      entities: [
-        User,
-      ],
+      entities: [Staff, Department, Position ],
       synchronize: true,
     }),
-     UserModule],
+    DepartmensModule,
+    StaffsModule,
+    PositionsModule,
+    ],
   controllers: [AppController],
   providers: [AppService],
 })
