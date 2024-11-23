@@ -7,6 +7,8 @@ import {
   IsPhoneNumber,
   IsString
 } from 'class-validator'
+import { Department } from 'src/departmens/entities/departmen.entity'
+import { Position } from 'src/positions/entities/position.entity'
 export class CreateStaffDto {
 
   @IsString()
@@ -15,11 +17,11 @@ export class CreateStaffDto {
 
   @IsNumber()
   @IsNotEmpty()
-  departmentId: number
+  department: Department
 
   @IsNumber()
   @IsNotEmpty()
-  position: string
+  position: Position
 
   @IsPhoneNumber('VN')
   @IsNotEmpty()

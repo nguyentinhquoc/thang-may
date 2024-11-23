@@ -1,6 +1,6 @@
 import { Department } from 'src/departmens/entities/departmen.entity';
 import { Position } from 'src/positions/entities/position.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
 
 @Entity()
 export class Staff {
@@ -40,4 +40,11 @@ export class Staff {
 
   @ManyToOne(() => Position, position => position.staff)
   position: Position;
+
+  @CreateDateColumn()
+  createdAt: Date
+  @UpdateDateColumn()
+  updatedAt: Date
+  @DeleteDateColumn()
+  deletedAt?: Date
 }

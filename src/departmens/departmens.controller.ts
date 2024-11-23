@@ -17,18 +17,13 @@ export class DepartmensController {
     return this.departmensService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.departmensService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDepartmenDto: UpdateDepartmenDto) {
+  @Patch()
+  update(@Body('id') id: string, @Body() updateDepartmenDto: UpdateDepartmenDto) {
     return this.departmensService.update(+id, updateDepartmenDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete()
+  remove(@Body('id') id: string) {
     return this.departmensService.remove(+id);
   }
 }

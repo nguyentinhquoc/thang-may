@@ -1,34 +1,49 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { StaffsService } from './staffs.service';
-import { CreateStaffDto } from './dto/create-staff.dto';
-import { UpdateStaffDto } from './dto/update-staff.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  Put
+} from '@nestjs/common'
+import { StaffsService } from './staffs.service'
+import { CreateStaffDto } from './dto/create-staff.dto'
+import { UpdateStaffDto } from './dto/update-staff.dto'
+import { LoginDto } from './dto/create-staff.dto copy'
 
 @Controller('staffs')
 export class StaffsController {
-  constructor(private readonly staffsService: StaffsService) {}
+  constructor (private readonly staffsService: StaffsService) {}
 
   @Post()
-  create(@Body() createStaffDto: CreateStaffDto) {
-    return this.staffsService.create(createStaffDto);
+  create (@Body() createStaffDto: CreateStaffDto) {
+    return this.staffsService.create(createStaffDto)
+  }
+
+  @Post('login')
+  login (@Body() loginDto: LoginDto) {
+    return this.staffsService.login(loginDto)
   }
 
   @Get()
-  findAll() {
-    return this.staffsService.findAll();
+  findAll () {
+    return this.staffsService.findAll()
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.staffsService.findOne(+id);
+  findOne (@Param('id') id: string) {
+    return this.staffsService.findOne(+id)
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStaffDto: UpdateStaffDto) {
-    return this.staffsService.update(+id, updateStaffDto);
+  update (@Param('id') id: string, @Body() updateStaffDto: UpdateStaffDto) {
+    return this.staffsService.update(+id, updateStaffDto)
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.staffsService.remove(+id);
+  remove (@Param('id') id: string) {
+    return this.staffsService.remove(+id)
   }
 }
