@@ -13,9 +13,12 @@ import { CustomersModule } from './customers/customers.module'
 import { Customer } from './customers/entities/customer.entity'
 import { AuthGuard } from './guards/auth/auth.guard'
 import { APP_FILTER, APP_GUARD } from '@nestjs/core'
-import * as cookieParser from 'cookie-parser';
-import { JwtModule } from '@nestjs/jwt'
+import * as cookieParser from 'cookie-parser'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter'
+import { MailerModule } from '@nestjs-modules/mailer'
+import { join } from 'path'
+import { SendMailService } from './send-mail/send-mail.service';
+console.log(join(__dirname ,'../views/SendMail'))
 
 @Module({
   imports: [
@@ -34,10 +37,30 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter'
       }),
       inject: [ConfigService],
     }),
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const templateDir = join(__dirname, '../views/SendMail');
+        console.log('Template directory:', templateDir);
+        return {
+          transport: {
+            host: configService.get<string>('MAIL_HOST'),
+            port: configService.get<number>('MAIL_PORT'),
+            secure: false,
+            auth: {
+              user: configService.get<string>('MAIL_USER'),
+              pass: configService.get<string>('MAIL_PASS'),
+            }
+          },
+        };
+      },
+      inject: [ConfigService],
+    }),
     DepartmensModule,
     StaffsModule,
     PositionsModule,
-    CustomersModule],
+    CustomersModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,
@@ -48,11 +71,12 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter'
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
-    }
+    },
+    SendMailService,
   ],
 })
 export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(cookieParser()).forRoutes('*');
+  configure (consumer: MiddlewareConsumer) {
+    consumer.apply(cookieParser()).forRoutes('*')
   }
 }

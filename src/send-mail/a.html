@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thông báo công việc</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      text-align: center;
+      background-color: #007bff;
+      color: #ffffff;
+      padding: 20px;
+      border-radius: 6px 6px 0 0;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .content {
+      text-align: left;
+      padding: 20px;
+    }
+    .content h2 {
+      font-size: 22px;
+      color: #333333;
+    }
+    .content p {
+      font-size: 16px;
+      color: #666666;
+    }
+    .job-details {
+      background-color: #f8f9fa;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+      border: 1px solid #ddd;
+    }
+    .job-details h3 {
+      font-size: 18px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+    .job-details p {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+    .status {
+      padding: 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .status.completed {
+      background-color: #28a745;
+      color: white;
+    }
+    .status.in-progress {
+      background-color: #ffc107;
+      color: black;
+    }
+    .status.pending {
+      background-color: #dc3545;
+      color: white;
+    }
+    .button {
+      background-color: #007bff;
+      color: #ffffff;
+      padding: 12px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+    .button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Thông báo công việc</h1>
+    </div>
+    <div class="content">
+      <h2>Thông tin công việc</h2>
+
+      <div class="job-details">
+        <p><strong>Tên nhân viên phụ trách:</strong> Nguyễn Tình</p>
+        <p><strong>Tên công việc:</strong> Cài đặt hệ thống thang máy</p>
+        <p><strong>Mô tả công việc:</strong> Cài đặt và bảo trì hệ thống thang máy tại tòa nhà ABC.</p>
+      </div>
+
+      <div class="status completed">
+        <p><strong>Tình trạng công việc:</strong> Hoàn thành</p>
+      </div>
+
+      <!-- Nút chuyển hướng đến trang công việc -->
+      <a href="https://yourwebsite.com/job-details/123" class="button">Xem công việc chi tiết</a>
+    </div>
+  </div>
+</body>
+</html>
