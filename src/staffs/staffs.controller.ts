@@ -6,7 +6,8 @@ import {
   Patch,
   Param,
   Delete,
-  Put
+  Put,
+  Render
 } from '@nestjs/common'
 import { StaffsService } from './staffs.service'
 import { CreateStaffDto } from './dto/create-staff.dto'
@@ -19,13 +20,11 @@ export class StaffsController {
 
   @Post()
   create (@Body() createStaffDto: CreateStaffDto) {
+    
     return this.staffsService.create(createStaffDto)
   }
 
-  @Post('login')
-  login (@Body() loginDto: LoginDto) {
-    return this.staffsService.login(loginDto)
-  }
+
 
   @Get()
   findAll () {
