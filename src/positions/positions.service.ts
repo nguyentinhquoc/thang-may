@@ -14,11 +14,9 @@ export class PositionsService {
   create (createPositionDto: CreatePositionDto): Promise<Position> {
     return this.positionsRepository.save(createPositionDto)
   }
-  findAll () {
-    return this.positionsRepository.find()
+async  findAll () {
+    return await this.positionsRepository.find()
   }
-
-
 
   update(id: number,updatePositionDto: UpdatePositionDto) {
     return this.positionsRepository.update(id, updatePositionDto);

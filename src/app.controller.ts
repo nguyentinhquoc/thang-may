@@ -11,15 +11,8 @@ export class AppController {
   ) { }
 
   @Get()
-  @Render('index')
+  @Render('admin/index')
   renderIndexadmin() {
-    return {}
-  }
-
-  @Get('admin')
-  @SetMetadata('role_admin', true)
-  @Render('alert')
-  renderIndex() {
     return {}
   }
 
@@ -28,6 +21,13 @@ export class AppController {
   @Render('login')
   loginRennder() {
     return {}
+  }
+  @Get('logout')
+  @SetMetadata('isPublic', true)
+  @Render('login')
+  logout(@Res() res: Response) {
+    res.clearCookie('token')
+    return { message: 'Đăng xuất thành công!', status: 'success' }
   }
 
   @Post('login')
@@ -41,7 +41,7 @@ export class AppController {
       })
     }
     else {
-      res.cookie('token', token, { maxAge: 50000 });
+      res.cookie('token', token, { maxAge: 5000000000000000 });
       res.redirect('/')
       res.render('index', {
         message: 'Đăng nhập thành công!',

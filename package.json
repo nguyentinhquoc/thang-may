@@ -37,6 +37,7 @@
     "express-session": "^1.18.1",
     "js-yaml": "^4.1.0",
     "jsonwebtoken": "^9.0.2",
+    "method-override": "^3.0.0",
     "mysql2": "^3.11.4",
     "ngx-toastr": "^19.0.0",
     "passport": "^0.7.0",
