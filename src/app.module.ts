@@ -18,6 +18,8 @@ import { HttpExceptionFilter } from './common/filters/http-exception.filter'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { join } from 'path'
 import { SendMailService } from './send-mail/send-mail.service';
+import { WorkflowsModule } from './workflows/workflows.module';
+import { Workflow } from './workflows/entities/workflow.entity'
 console.log(join(__dirname ,'../views/SendMail'))
 
 @Module({
@@ -32,7 +34,7 @@ console.log(join(__dirname ,'../views/SendMail'))
         username: configService.get<string>('DATABASE_USER'),
         password: configService.get<string>('DATABASE_PASS'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Staff, Department, Position, Customer],
+        entities: [Staff, Department, Position, Customer, Workflow],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -60,14 +62,15 @@ console.log(join(__dirname ,'../views/SendMail'))
     StaffsModule,
     PositionsModule,
     CustomersModule,
+    WorkflowsModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
+    // {
+      // provide: APP_GUARD,
+      // useClass: AuthGuard,
+    // },
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,

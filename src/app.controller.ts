@@ -45,6 +45,7 @@ export class AppController {
   }
 
   @Get()
+  // @SetMetadata('role_admin', true)
   @Render('admin/index')
   renderIndexadmin () {
     return {}

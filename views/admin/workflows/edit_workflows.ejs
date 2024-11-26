@@ -1,0 +1,99 @@
+<%- include('../../layout/header') %>
+<style>
+  .hidden {
+    display: none;
+  }
+  .highlight-border::before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: red;
+    position: relative;
+    top: -10px;
+  }
+</style>
+<div class="row item-list">
+  <div class="col-lg-4">
+    <section class="card p-3">
+      <h5>Các bước chưa dùng</h5>
+      <div class="d-flex justify-content-between m-t-15 m-b-15">
+        <div></div>
+        <button type="button" class="btn btn-primary" id="add-new-position"> <i class="fas fa-plus-square"></i>&nbsp; Thêm mới</button>
+      </div>
+      <ul id="unused-items">
+        <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 1</li>
+        <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 2</li>
+        <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 3</li>
+        <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 4</li>
+        <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 5</li>
+        <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 6</li>
+      </ul>
+    </section>
+  </div>
+  <div class="col-lg-8">
+    <section class="card p-3">
+      <div class="card-body text-secondary">
+        <ul id="used-items">
+          <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 1</li>
+          <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 2</li>
+          <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 3</li>
+          <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 4</li>
+          <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 5</li>
+          <li class="card-body text-light m-b-15 btn-primary" draggable="true">Item 6</li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+<script>
+  let draggingItem = null;
+
+  document.querySelectorAll('ul').forEach(list => {
+    list.addEventListener('dragstart', handleDragStart);
+    list.addEventListener('dragover', handleDragOver);
+    list.addEventListener('drop', handleDrop);
+    list.addEventListener('dragleave', handleDragLeave);
+  });
+
+  function handleDragStart(e) {
+    draggingItem = e.target;
+    e.dataTransfer.setData('text/plain', null);
+    setTimeout(() => {
+      draggingItem.classList.add('hidden');
+    }, 0);
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    const dropTarget = e.target.closest('li');
+    if (dropTarget && dropTarget !== draggingItem) {
+      dropTarget.classList.add('highlight-border');
+    }
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    const dropTargetList = e.target.closest('ul');
+    const dropTarget = e.target.closest('li');
+    if (dropTargetList) {
+      dropTargetList.classList.remove('highlight');
+      if (dropTarget) {
+        dropTarget.classList.remove('highlight-border');
+        dropTargetList.insertBefore(draggingItem, dropTarget);
+      } else {
+        dropTargetList.appendChild(draggingItem);
+      }
+      draggingItem.classList.remove('hidden');
+      draggingItem = null;
+    }
+  }
+
+  function handleDragLeave(e) {
+    const dropTarget = e.target.closest('li');
+    if (dropTarget) {
+      dropTarget.classList.remove('highlight-border');
+    }
+  }
+</script>
+<%- include('../../layout/footer') %>
