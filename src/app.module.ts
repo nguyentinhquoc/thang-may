@@ -42,8 +42,6 @@ console.log(join(__dirname ,'../views/SendMail'))
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
-        const templateDir = join(__dirname, '../views/SendMail');
-        console.log('Template directory:', templateDir);
         return {
           transport: {
             host: configService.get<string>('MAIL_HOST'),
