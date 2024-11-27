@@ -9,6 +9,5 @@ export class CreateCustomerDto {
   @IsEmail()
   email: string
   @IsString()
-  @IsNotEmpty()
   address: string
 }

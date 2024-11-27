@@ -23,26 +23,26 @@ export class AppController {
     private sendMailService: SendMailService,
   ) {}
 
-  @Get('sendmail')
-  @SetMetadata('isPublic', true)
-  sendMail () {
-    const contentSendMail = this.sendMailService.forgotPassword(
-      'Nguyễn Tình',
-      'nguyentinh201004@gmail.com',
-      '123456',
-    )
-    this.mailerService
-      .sendMail(contentSendMail)
-      .then(() => {
-        console.log('Email sent successfully')
-      })
-      .catch(error => {
-        console.error('Error sending email:', error)
-        return { message: 'Gửi mail thất bại!', error: error.message }
-      })
-    console.log('thanh cong')
-    return { message: 'Gửi mail thành công!' }
-  }
+  // @Get('sendmail')
+  // @SetMetadata('isPublic', true)
+  // sendMail () {
+  //   const contentSendMail = this.sendMailService.forgotPassword(
+  //     'Nguyễn Tình',
+  //     'nguyentinh201004@gmail.com',
+  //     '123456',
+  //   )
+  //   this.mailerService
+  //     .sendMail(contentSendMail)
+  //     .then(() => {
+  //       console.log('Email sent successfully')
+  //     })
+  //     .catch(error => {
+  //       console.error('Error sending email:', error)
+  //       return { message: 'Gửi mail thất bại!', error: error.message }
+  //     })
+  //   console.log('thanh cong')
+  //   return { message: 'Gửi mail thành công!' }
+  // }
 
   @Get()
   // @SetMetadata('role_admin', true)

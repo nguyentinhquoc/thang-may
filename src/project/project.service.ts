@@ -12,7 +12,12 @@ export class ProjectService {
     private readonly projectRepository: Repository<Project>,
   ) {}
   create (createProjectDto: CreateProjectDto) {
-    return 'This action adds a new project'
+    return this.projectRepository.save({
+      full_name : createProjectDto.full_name,
+      number_phone: createProjectDto.number_phone,
+      email: createProjectDto.email,
+      address: createProjectDto.address,
+    })
   }
 
   findAll () {

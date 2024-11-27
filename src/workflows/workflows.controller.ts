@@ -17,13 +17,13 @@ import { StepsService } from 'src/steps/steps.service'
 import { WorkflowStepsService } from 'src/workflow_steps/workflow_steps.service'
 @Controller('workflows')
 export class WorkflowsController {
-  constructor (
+  constructor(
     private readonly workflowsService: WorkflowsService,
     private stepsService: StepsService,
     private workflowStepsService: WorkflowStepsService,
   ) {}
   @Post()
-  async create (
+  async create(
     @Body() createWorkflowDto: CreateWorkflowDto,
     @Res() res: Response,
   ) {
@@ -32,7 +32,7 @@ export class WorkflowsController {
   }
   @Get()
   @Render('admin/workflows/workflows')
-  async findAll () {
+  async findAll() {
     const workflows = await this.workflowsService.findAll()
     return {
       workflows,
@@ -40,7 +40,7 @@ export class WorkflowsController {
   }
   @Get(':id')
   @Render('admin/workflows/edit_workflows')
-  async findOne (@Param('id') id: number) {
+  async findOne(@Param('id') id: number) {
     const steps = await this.stepsService.findAll()
     const workflowSteps = await this.workflowStepsService.findWorkflow(+id)
     let Picker = workflowSteps.map(workflowStep => workflowStep.step.id)
@@ -56,7 +56,6 @@ export class WorkflowsController {
         return this.stepsService.findOne(+element)
       }),
     )
-
     return {
       PickerIn,
       NonePickerIn,
@@ -64,7 +63,7 @@ export class WorkflowsController {
   }
 
   @Patch()
-  async update (
+  async update(
     @Body('id') id: string,
     @Body() updateWorkflowDto: UpdateWorkflowDto,
     @Res() res: Response,
@@ -74,26 +73,25 @@ export class WorkflowsController {
   }
 
   @Patch(':id')
-  async updateQt (
+  async updateQt(
     @Param('id') id: string,
     @Body() updateWorkflowDto: UpdateWorkflowDto,
     @Res() res: Response,
   ) {
     await this.workflowStepsService.remove(+id)
     if (updateWorkflowDto.listStep) {
-      updateWorkflowDto.listStep.forEach(element => {
-        this.workflowStepsService.create({
+      for (const element of updateWorkflowDto.listStep) {
+        await this.workflowStepsService.create({
           workflowId: +id,
           stepId: element,
-        })
-      })
+        });
+      }
     }
-
     return res.redirect('/workflows')
   }
 
   @Delete(':id')
-  remove (@Param('id') id: string) {
+  remove(@Param('id') id: string) {
     return this.workflowsService.remove(+id)
   }
 }

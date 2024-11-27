@@ -35,7 +35,7 @@ export class WorkflowStepsService {
       step,
       workflow,
     })
-    return this.workflowStepRepository.save(workflowStep)
+    return await this.workflowStepRepository.save(workflowStep)
   }
 
   findWorkflow (id: number) {
@@ -46,7 +46,9 @@ export class WorkflowStepsService {
   }
 
   findAll () {
-    return `This action returns all workflowSteps`
+    return this.workflowStepRepository.find({
+      relations: ['workflow','step'],
+    })
   }
 
   findOne (id: number) {

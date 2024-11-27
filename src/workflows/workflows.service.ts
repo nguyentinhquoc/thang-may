@@ -11,6 +11,7 @@ export class WorkflowsService {
     @InjectRepository(Workflow)
     private workflowsRepository: Repository<Workflow>,
   ) {}
+
   async create (createWorkflowDto: CreateWorkflowDto) {
     const workflow = await this.workflowsRepository.save(createWorkflowDto)
     return workflow.id

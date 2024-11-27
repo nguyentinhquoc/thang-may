@@ -20,7 +20,7 @@ export class Project {
   address: string
   @Column('json', { nullable: true })
   infor_product: string
-  @Column({ length: 225 })
+  @Column({ length: 225, nullable: true })
   description: string
   @Column({ default: 0 })
   status: number
