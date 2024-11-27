@@ -15,7 +15,7 @@
   }
 </style>
 <h2 class=" m-b-30">Tạo mới dự án</h2>
-<form action="/project" method="POST">
+<form action="/project" method="POST" id="FormAdd">
   <div class="d-flex justify-content-between m-t-15 m-b-15">
     <div class="col-lg-7">
       <section class="card">
@@ -38,7 +38,7 @@
           </div>
           <div class="form-group">
             <label for="description">Ghi chú</label>
-            <textarea id="description" name="description" class="form-control" required maxlength="225"></textarea>
+            <textarea id="description" name="description" class="form-control"  maxlength="225"></textarea>
           </div>
         </div>
       </section>
@@ -60,29 +60,49 @@
             </select>
             <% workflowSteps.forEach(function(workflowStep) { %>
             <div class="step step<%= workflowStep.workflow.id %> m-t-30">
-              <p class="d-flex justify-content-between btn btn-success btn-lg btn-block m-b-15 add-new-position" idValue="<%= workflowStep.id %>" nameValue="
+              <div class="d-flex justify-content-between btn btn-success btn-lg btn-block m-b-15 add-new-position" idValue="<%= workflowStep.id %>" nameValue="
                   <%= workflowStep.step.name %>">
-                <span>
+                <span style="text-align: start;">
                   <%= workflowStep.step.name %>
                   <br>
                   <span style="opacity: 0.5;">
                     <%= workflowStep.step.description %>
                   </span>
                 </span>
-                <span><i class="fas fa-plus-square"></i>&nbsp;</span>
-              </p>
+                <div>
+                  <div style="text-align: end;"><i class="fas fa-plus-square"></i>&nbsp;</div>
+                  <div id="imgStep<%= workflowStep.id %>" class="imgStep">
+                  </div>
+                </div>
+              </div>
             </div>
             <% }) %>
       </section>
     </div>
   </div>
-  <button class="btn btn-success btn-lg btn-block">Tạo mới dự án</button>
+  <button class="btn btn-success btn-lg btn-block" onclick="SubmitForm(event)">Tạo mới dự án</button>
 </form>
-<input type="text">
 <script>
-  function pushStaff(value) {
+
+function SubmitForm(e){
+e.preventDefault()
+$('#FormAdd input[name="steps"]').remove();
+const jsonString = JSON.stringify(ArrayObj, (key, value) => {
+  if (key === 'img') {
+    return undefined;
+  }
+  return value;
+});
+console.log(jsonString)
+$('#FormAdd').append(`<input type="text" name="steps" value='${jsonString}'>`)
+document.getElementById("FormAdd").submit();
+}
+
+  function pushStaff(value, id, avatar) {
     if ($('#date-time').val() != '') {
       $('.clickXN').prop('disabled', false);
+      $('#imgStaff').attr('value', avatar);
+      $('#idStaff').attr('value', id);
     } else {
       $('.clickXN').prop('disabled', true);
     }
@@ -110,6 +130,7 @@
     }
   }
   $(document).ready(function() {
+    $(".step").slideUp();
     $("#workflow").change(function(e) {
       const workflowId = e.target.value;
       $(".step").slideUp();
@@ -118,7 +139,6 @@
     $('.add-new-position').click(function() {
       $('#newPositionModal').remove();
       var idValue = $(this).attr('idValue');
-      var imgValue = $(this).attr('imgValue');
       var nameValue = $(this).attr('nameValue');
       var form =
         '<div class="modal fade" id="newPositionModal" tabindex="-1" aria-labelledby="newPositionModalLabel" aria-hidden="true">' +
@@ -128,7 +148,8 @@
         '<div class="d-flex justify-content-between w-100" >' +
         `<h5 class="modal-title" id="newPositionModalLabel">Cài đặt quy trình ${nameValue}</h5>
         <input type="hidden" value="${idValue}" id="idSteps">
-        <input type="hidden" value="${imgValue}" id="imgSteps">
+        <input type="hidden"  id="imgStaff">
+        <input type="hidden"  id="idStaff">
         ` +
         '<button class="btn btn-success clickXN" disable onclick="clickXN()" disabled>Xác nhận</button>' +
         '</div>' +
@@ -145,7 +166,7 @@
         '<input type="text" class="form-control" id="staff-search"  oninput="filterList()">' +
         `<ul id="itemList">
   <% staffs.forEach(function(staff) { %>
-        <li class="btn w-100 infor-staff" onclick="pushStaff('<%=staff.full_name%>')"><%=staff.full_name%> - <%=staff.number_phone%></li>
+        <li class="btn w-100 infor-staff" onclick="pushStaff('<%=staff.full_name%>','<%=staff.id%>','<%=staff.avatar%>')"><%=staff.full_name%> - <%=staff.number_phone%></li>
         <% }) %>
 </ul>`
 
@@ -164,27 +185,28 @@
     });
   });
 
+  const ArrayObj = [];
+
   function clickXN() {
-
-
-    new Step(
-    $('#idSteps').val(),
-    $('#imgSteps').val(),
-    $('#staff-search').val(),
-    $('#date-time').val()
-    )
+    ArrayObj.push(new Step(
+      $('#idStaff').val(),
+      $('#idSteps').val(),
+      $('#imgStaff').val(),
+      $('#date-time').val()
+    ))
+    $(`.imgStep`).find('img').remove();
+    ArrayObj.forEach(element => {
+      $(`#imgStep${element.idStep}`).append(`<img src="${element.img}" alt="" width="30px" height="30px" style="border-radius: 100%; margin-right:5px"> `)
+    });
   }
   // XỬ LÝ OBJ
-  function Step(id, img, name, date) {
+  function Step(idStaff, idStep, img, date) {
     this.img = img;
-    this.name = name;
     this.date = date;
-    this.id = id;
+    this.idStaff = idStaff;
+    this.idStep = idStep;
     this.getImg = function() {
       return this.img
-    };
-    this.getName = function() {
-      return this.name
     };
     this.getDate = function() {
       return this.date
@@ -193,8 +215,6 @@
       return this.id
     };
   }
-  const ArrayObj = [];
-  console.log(obj1.getImg())
 </script>
 
 

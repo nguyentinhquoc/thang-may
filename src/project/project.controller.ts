@@ -18,6 +18,7 @@ import { CustomersService } from 'src/customers/customers.service'
 import { Response } from 'express'
 import { StepsService } from 'src/steps/steps.service'
 import { StaffsService } from 'src/staffs/staffs.service'
+import { ProjectStepsService } from 'src/project_steps/project_steps.service'
 
 @Controller('project')
 export class ProjectController {
@@ -28,20 +29,36 @@ export class ProjectController {
     private readonly customerService: CustomersService,
     private readonly stepsService: StepsService,
     private readonly staffsService: StaffsService,
+    private readonly projectStepsService: ProjectStepsService,
   ) {}
 
   @Post()
-  async create(@Body() createProjectDto: CreateProjectDto, @Res() res: Response) {
-    // { "full_name": "đâs", "number_phone": "0862201004", "email": "nguyenvana45@example.com", "address": "đá", "description": "đấ", "workflow": "25" }
-    const Workflow = createProjectDto.workflow
-  const Project =  await this.projectService.create(createProjectDto)
+  async create (
+    @Body() createProjectDto: CreateProjectDto,
+    @Res() res: Response,
+  ) {
+    const Project = await this.projectService.create(createProjectDto)
     await this.customerService.create({
       full_name: createProjectDto.full_name,
       number_phone: createProjectDto.number_phone,
       email: createProjectDto.email,
       address: createProjectDto.address,
     })
-    return Project
+    console.log('typeof createProjectDto.steps',typeof createProjectDto.steps)
+    const stepsArray = JSON.parse(createProjectDto.steps);
+    console.log(typeof stepsArray)
+    stepsArray.forEach(async (step) => {
+      console.log(step.date);
+      console.log(step.idSteps);
+      await this.projectStepsService.create({
+        workflowStepsId: step.idSteps,
+        projectId: Project.id,
+        staffId: step.idStaff,
+        time: step.date,
+      });
+    });
+    console.log(createProjectDto.steps)
+    return res.redirect('/project')
   }
 
   @Get('/add')
@@ -52,7 +69,10 @@ export class ProjectController {
     const workflowSteps = await this.workflowStepsService.findAll()
     const staffs = await this.staffsService.findAll()
     return {
-      workflows, steps, workflowSteps, staffs
+      workflows,
+      steps,
+      workflowSteps,
+      staffs,
     }
   }
   @Get()

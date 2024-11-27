@@ -7,6 +7,7 @@ import {
   MaxLength,
   IsNumber,
   IsInt,
+  IsArray,
 } from 'class-validator'
 export class CreateProjectDto {
   workflow: number
@@ -33,5 +34,7 @@ export class CreateProjectDto {
 
   @MaxLength(225)
   description: string
+
+  steps: string
 
 }

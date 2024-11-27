@@ -26,6 +26,8 @@ import { WorkflowStepsModule } from './workflow_steps/workflow_steps.module'
 import { WorkflowStep } from './workflow_steps/entities/workflow_step.entity'
 import { ProjectModule } from './project/project.module'
 import { Project } from './project/entities/project.entity'
+import { ProjectStepsModule } from './project_steps/project_steps.module';
+import { ProjectStep } from './project_steps/entities/project_step.entity'
 console.log(join(__dirname, '../views/SendMail'))
 
 @Module({
@@ -48,7 +50,7 @@ console.log(join(__dirname, '../views/SendMail'))
           Workflow,
           Step,
           WorkflowStep,
-          Project
+          Project, ProjectStep
         ],
         synchronize: true,
       }),
@@ -79,6 +81,7 @@ console.log(join(__dirname, '../views/SendMail'))
     StepsModule,
     WorkflowStepsModule,
     ProjectModule,
+    ProjectStepsModule,
   ],
   controllers: [AppController],
   providers: [

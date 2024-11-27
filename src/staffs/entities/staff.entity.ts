@@ -1,45 +1,54 @@
-import { Department } from 'src/departmens/entities/departmen.entity';
-import { Position } from 'src/positions/entities/position.entity';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Department } from 'src/departmens/entities/departmen.entity'
+import { Position } from 'src/positions/entities/position.entity'
+import { ProjectStep } from 'src/project_steps/entities/project_step.entity'
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+  OneToMany,
+} from 'typeorm'
 
 @Entity()
 export class Staff {
-
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
   @Column({ length: 255 })
-  full_name: string;
+  full_name: string
 
-  @Column({ unique: true,length: 15 })
-  number_phone: string;
+  @Column({ unique: true, length: 15 })
+  number_phone: string
 
   @Column({ unique: true, length: 255 })
-  email: string;
+  email: string
 
   @Column('text', { nullable: true })
-  address: string;
+  address: string
 
   @Column({ length: 255, nullable: true })
-  avatar: string;
+  avatar: string
 
   @Column('text', { nullable: true })
-  description: string;
+  description: string
 
   @Column({ default: true })
-  status: boolean;
+  status: boolean
 
   @Column({ length: 255 })
-  password: string;
+  password: string
 
   @Column({ default: false })
-  role_admin: boolean;
+  role_admin: boolean
 
   @ManyToOne(() => Department, department => department.staff)
-  department: Department;
+  department: Department
 
   @ManyToOne(() => Position, position => position.staff)
-  position: Position;
+  position: Position
 
   @CreateDateColumn()
   createdAt: Date
@@ -47,4 +56,6 @@ export class Staff {
   updatedAt: Date
   @DeleteDateColumn()
   deletedAt?: Date
+  @OneToMany(() => ProjectStep, projectStep => projectStep.staff)
+  projectSteps: ProjectStep[]
 }

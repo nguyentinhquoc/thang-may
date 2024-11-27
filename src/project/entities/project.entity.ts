@@ -1,3 +1,4 @@
+import { ProjectStep } from 'src/project_steps/entities/project_step.entity'
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,6 +6,7 @@ import {
   DeleteDateColumn,
   UpdateDateColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm'
 @Entity()
 export class Project {
@@ -30,4 +32,6 @@ export class Project {
   updatedAt: Date
   @DeleteDateColumn()
   deletedAt?: Date
+  @OneToMany(() => ProjectStep, (projectStep) => projectStep.project)
+  projectSteps: ProjectStep[];
 }

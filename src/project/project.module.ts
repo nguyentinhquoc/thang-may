@@ -9,9 +9,10 @@ import { CustomersModule } from 'src/customers/customers.module'
 import { Step } from 'src/steps/entities/step.entity'
 import { StepsModule } from 'src/steps/steps.module'
 import { StaffsModule } from 'src/staffs/staffs.module'
+import { ProjectStepsModule } from 'src/project_steps/project_steps.module'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Project]),WorkflowsModule,CustomersModule,StepsModule,WorkflowStepsModule,StaffsModule],
+  imports: [TypeOrmModule.forFeature([Project]),WorkflowsModule,CustomersModule,StepsModule,WorkflowStepsModule,StaffsModule,ProjectStepsModule],
   controllers: [ProjectController],
   providers: [ProjectService],
   exports: [ProjectService],
