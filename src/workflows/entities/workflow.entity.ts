@@ -1,3 +1,4 @@
+import { WorkflowStep } from 'src/workflow_steps/entities/workflow_step.entity'
 import {
   Column,
   CreateDateColumn,
@@ -5,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToMany,
 } from 'typeorm'
 @Entity()
 export class Workflow {
@@ -19,4 +21,6 @@ export class Workflow {
   updatedAt: Date
   @DeleteDateColumn()
   deletedAt?: Date
+  @OneToMany(() => WorkflowStep, (workflowStep) => workflowStep.workflow)
+  workflowSteps: WorkflowStep[];
 }

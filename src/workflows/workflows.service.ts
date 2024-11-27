@@ -11,9 +11,9 @@ export class WorkflowsService {
     @InjectRepository(Workflow)
     private workflowsRepository: Repository<Workflow>,
   ) {}
- async create (createWorkflowDto: CreateWorkflowDto) {
-   const workflow =   await this.workflowsRepository.save(createWorkflowDto)
-   return workflow.id
+  async create (createWorkflowDto: CreateWorkflowDto) {
+    const workflow = await this.workflowsRepository.save(createWorkflowDto)
+    return workflow.id
   }
 
   findAll () {
@@ -21,13 +21,12 @@ export class WorkflowsService {
   }
 
   findOne (id: number) {
-    return `This action returns a #${id} workflow`
+    return this.workflowsRepository.findOne({ where: { id } })
   }
 
   update (id: number, updateWorkflowDto: UpdateWorkflowDto) {
-    return this.workflowsRepository.update(id, updateWorkflowDto);
+    return this.workflowsRepository.update(id, updateWorkflowDto)
   }
-
 
   remove (id: number) {
     return `This action removes a #${id} workflow`

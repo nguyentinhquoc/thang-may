@@ -26,12 +26,18 @@
             <td>
               <div class="table-data-feature">
                 <!-- Nút Edit để kích hoạt Modal -->
+                 <a href="/workflows/<%= workflow.id %>">
+                   <button class="item" data-toggle="tooltip" data-placement="top"
+                   title="Chi tiết">
+                   <i class="fas fa-info-circle"></i>
+                  </button>
+                </a>
                 <button class="item edit-btn" data-toggle="tooltip" data-placement="top"
-                  title="Edit">
+                  title="Chỉnh sửa">
                   <i class="zmdi zmdi-edit"></i>
                 </button>
                 <button class="item" data-toggle="tooltip" data-placement="top"
-                  title="Delete">
+                  title="Xóa">
                   <i class="zmdi zmdi-delete"></i>
                 </button>
               </div>

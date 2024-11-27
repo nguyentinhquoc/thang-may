@@ -17,10 +17,16 @@ import * as cookieParser from 'cookie-parser'
 import { HttpExceptionFilter } from './common/filters/http-exception.filter'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { join } from 'path'
-import { SendMailService } from './send-mail/send-mail.service';
-import { WorkflowsModule } from './workflows/workflows.module';
+import { SendMailService } from './send-mail/send-mail.service'
+import { WorkflowsModule } from './workflows/workflows.module'
 import { Workflow } from './workflows/entities/workflow.entity'
-console.log(join(__dirname ,'../views/SendMail'))
+import { StepsModule } from './steps/steps.module'
+import { Step } from './steps/entities/step.entity'
+import { WorkflowStepsModule } from './workflow_steps/workflow_steps.module'
+import { WorkflowStep } from './workflow_steps/entities/workflow_step.entity'
+import { ProjectModule } from './project/project.module'
+import { Project } from './project/entities/project.entity'
+console.log(join(__dirname, '../views/SendMail'))
 
 @Module({
   imports: [
@@ -34,7 +40,16 @@ console.log(join(__dirname ,'../views/SendMail'))
         username: configService.get<string>('DATABASE_USER'),
         password: configService.get<string>('DATABASE_PASS'),
         database: configService.get<string>('DATABASE_NAME'),
-        entities: [Staff, Department, Position, Customer, Workflow],
+        entities: [
+          Staff,
+          Department,
+          Position,
+          Customer,
+          Workflow,
+          Step,
+          WorkflowStep,
+          Project
+        ],
         synchronize: true,
       }),
       inject: [ConfigService],
@@ -50,9 +65,9 @@ console.log(join(__dirname ,'../views/SendMail'))
             auth: {
               user: configService.get<string>('MAIL_USER'),
               pass: configService.get<string>('MAIL_PASS'),
-            }
+            },
           },
-        };
+        }
       },
       inject: [ConfigService],
     }),
@@ -61,13 +76,16 @@ console.log(join(__dirname ,'../views/SendMail'))
     PositionsModule,
     CustomersModule,
     WorkflowsModule,
+    StepsModule,
+    WorkflowStepsModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
     // {
-      // provide: APP_GUARD,
-      // useClass: AuthGuard,
+    // provide: APP_GUARD,
+    // useClass: AuthGuard,
     // },
     {
       provide: APP_FILTER,
