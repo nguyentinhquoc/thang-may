@@ -75,19 +75,23 @@
     <aside class="menu-sidebar d-none d-lg-block">
       <div class="logo">
         <a href="/#">
-          <img src="/images/icon/logo.png" alt="Cool Admin" />
+          <!-- <img src="/images/icon/logo.png" alt="Cool Admin" /> -->
+          <img src="https://png.pngtree.com/png-vector/20230408/ourmid/pngtree-free-demo-banner-design-vector-png-image_6695393.png" alt="logo" />
         </a>
       </div>
       <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
           <ul class="list-unstyled navbar__list">
-            <li class="active has-sub">
-              <a class="js-arrow" href="/#">
+            <li class="<%= activeMenu === 'home' ? 'active' : '' %> has-sub" style="height: 0px;" >
+              <a href=""></a>
+            </li>
+             <li class="<%= activeMenu === 'home' ? 'active' : '' %> has-sub">
+              <a class="js-arrow" href="/workflows" onclick="redirection('/')">
                 <i class="fas fa-tachometer-alt"></i>Trang chủ</a>
             </li>
-            <li class="has-sub">
-              <a class="js-arrow" href="#">
-                <i class="fas fa-users"></i>Nhân sự</a>
+            <li class="<%= activeMenu === 'staff' ? 'active' : '' %> has-sub" style="cursor: pointer;">
+              <a class="js-arrow">
+                <i class="fas fa-users" ></i>Nhân sự</a>
               <ul class="list-unstyled navbar__sub-list js-sub-list">
                 <li>
                   <a href="/departmens" onclick="redirection('/departmens')">Phòng ban</a>
@@ -100,13 +104,15 @@
                 </li>
               </ul>
             </li>
-            <li class="active has-sub">
+            <li class="<%= activeMenu === 'workflows' ? 'active' : '' %> has-sub">
+
               <a class="js-arrow" href="/workflows" onclick="redirection('/workflows')">
-                <i class="fas fa-tachometer-alt"></i>Quy trình</a>
+                <i class="fas fa-tasks"></i>Quy trình</a>
             </li>
-            <li class="active has-sub">
+            <li class="<%= activeMenu === 'project' ? 'active' : '' %> has-sub">
+
               <a class="js-arrow" href="/project" onclick="redirection('/project')">
-                <i class="fas fa-tachometer-alt"></i>Dự án</a>
+                <i class="fas fa-newspaper"></i>Dự án</a>
             </li>
           </ul>
         </nav>

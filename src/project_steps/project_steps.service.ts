@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProjectStepDto } from './dto/create-project_step.dto';
 import { UpdateProjectStepDto } from './dto/update-project_step.dto';
-import { Step } from 'src/steps/entities/step.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ProjectStep } from './entities/project_step.entity';

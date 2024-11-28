@@ -44,19 +44,19 @@ export class ProjectController {
       email: createProjectDto.email,
       address: createProjectDto.address,
     })
-    console.log('typeof createProjectDto.steps',typeof createProjectDto.steps)
-    const stepsArray = JSON.parse(createProjectDto.steps);
+    console.log('typeof createProjectDto.steps', typeof createProjectDto.steps)
+    const stepsArray = JSON.parse(createProjectDto.steps)
     console.log(typeof stepsArray)
-    stepsArray.forEach(async (step) => {
-      console.log(step.date);
-      console.log(step.idSteps);
+    stepsArray.forEach(async step => {
+      console.log(step.date)
+      console.log(step.idSteps)
       await this.projectStepsService.create({
         workflowStepsId: step.idSteps,
         projectId: Project.id,
         staffId: step.idStaff,
         time: step.date,
-      });
-    });
+      })
+    })
     console.log(createProjectDto.steps)
     return res.redirect('/project')
   }
@@ -81,6 +81,7 @@ export class ProjectController {
     const projects = await this.projectService.findAll()
     return {
       projects,
+      activeMenu: 'project'
     }
   }
 

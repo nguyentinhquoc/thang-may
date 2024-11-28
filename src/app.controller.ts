@@ -48,7 +48,7 @@ export class AppController {
   // @SetMetadata('role_admin', true)
   @Render('admin/index')
   renderIndexadmin () {
-    return {}
+    return { activeMenu: 'home' }
   }
 
   @Get('login')

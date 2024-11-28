@@ -33,7 +33,9 @@ export class PositionsController {
   async findAll () {
     const positions = await this.positionsService.findAll()
     return {
-      positions
+      positions,
+      activeMenu: 'staff'
+
 }
   }
 

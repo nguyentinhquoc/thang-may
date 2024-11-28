@@ -36,6 +36,7 @@ export class WorkflowsController {
     const workflows = await this.workflowsService.findAll()
     return {
       workflows,
+      activeMenu: 'workflows'
     }
   }
   @Get(':id')

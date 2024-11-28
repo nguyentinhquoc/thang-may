@@ -20,16 +20,20 @@ export class StaffsController {
 
   @Post()
   create (@Body() createStaffDto: CreateStaffDto) {
-    
     return this.staffsService.create(createStaffDto)
   }
 
-
-
   @Get()
-  findAll () {
-    return this.staffsService.findAll()
+    @Render('admin/staff/staff')
+
+  async findAll () {
+    const staffs = await this.staffsService.findAll()
+    return {
+      staffs,
+      activeMenu: 'staff'
+    }
   }
+
 
   @Get(':id')
   findOne (@Param('id') id: string) {

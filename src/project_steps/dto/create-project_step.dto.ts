@@ -1,11 +1,4 @@
-import {
-  IsNotEmpty,
-  IsInt,
-  IsDateString,
-  IsOptional,
-  IsUUID,
-} from 'class-validator'
-
+import { IsNotEmpty, IsInt } from 'class-validator';
 export class CreateProjectStepDto {
   @IsInt()
   @IsNotEmpty()
